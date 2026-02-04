@@ -1,1 +1,66 @@
-<p>select works!</p>
+<select
+	[id]="selectId()"
+	[name]="name()"
+	[required]="required()"
+	[disabled]="disabled()"
+	[class.cursor-not-allowed]="disabled()"
+	[ngClass]="{
+		'outline-red-500 focus:outline-red-500 border-red-500': isInvalid,
+		'outline-green-500 focus:outline-green-500 border-green-500': isValid,
+		'outline-gray-300 dark:outline-gray-700 focus:outline-indigo-600': !isInvalid && !isValid,
+	}"
+	[class]="classList()"
+	(blur)="_onTouched()"
+	[attr.aria-invalid]="ngControl?.invalid && ngControl?.touched"
+	[attr.aria-describedby]="errorId()"
+	#UISelect
+>
+	<!-- Opción placeholder -->
+	<option
+		value=""
+		disabled
+		selected
+	>
+		{{ placeholder() }}
+	</option>
+
+	<!-- Opciones del select -->
+	@for (group of options(); track group.value) {
+		@if (group.options) {
+			<optgroup [label]="group.label">
+				@for (opt of group.options; track opt.value) {
+					<option
+						[value]="opt.value"
+						[disabled]="opt.disabled ?? false"
+					>
+						{{ opt.label }}
+					</option>
+				}
+			</optgroup>
+		} @else {
+			<option
+				[value]="group.value"
+				[disabled]="group.disabled ?? false"
+			>
+				{{ group.label }}
+			</option>
+		}
+	}
+</select>
+
+<!-- Mensaje de error -->
+@if (isInvalid && errorMessage) {
+	<p
+		[id]="errorId()"
+		class="mt-1 text-sm font-light text-red-600 dark:text-red-400 flex items-center gap-1"
+	>
+		{{ errorMessage }}
+	</p>
+}
+
+<!-- Hint text (opcional) -->
+@if (hint() && !isInvalid) {
+	<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+		{{ hint() }}
+	</p>
+}
