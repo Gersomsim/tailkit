@@ -1,1 +1,37 @@
-<p>checkbox works!</p>
+<input
+	type="checkbox"
+	#UICheckbox
+	[id]="checkboxId()"
+	[name]="name()"
+	[disabled]="disabled()"
+	[readonly]="readonly()"
+	[class]="checkboxClasses()"
+	[ngClass]="{
+		'accent-red-500': isInvalid,
+		'accent-green-500': isValid,
+		'accent-indigo-600': !isInvalid && !isValid,
+	}"
+	[class.cursor-not-allowed]="disabled() || readonly()"
+	[class.cursor-pointer]="!disabled() && !readonly()"
+	(blur)="_onTouched()"
+	[attr.aria-invalid]="ngControl?.invalid && ngControl?.touched"
+	[attr.aria-describedby]="errorId()"
+	class="rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 transition-colors"
+/>
+
+<!-- Hint text -->
+@if (hint() && !isInvalid) {
+	<p class="text-sm text-gray-500 dark:text-gray-400">
+		{{ hint() }}
+	</p>
+}
+
+<!-- Mensaje de error -->
+@if (isInvalid && errorMessage) {
+	<p
+		[id]="errorId()"
+		class="text-sm font-light text-red-600 dark:text-red-400"
+	>
+		{{ errorMessage }}
+	</p>
+}

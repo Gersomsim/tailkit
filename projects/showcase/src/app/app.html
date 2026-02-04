@@ -1,0 +1,50 @@
+<form
+	class="max-w-md mx-auto space-y-2 mt-16"
+	[formGroup]="form"
+	(ngSubmit)="submitForm()"
+>
+	<tk-input
+		formControlName="name"
+		hint="Hint text"
+		name="Test1"
+		id="Test1"
+	/>
+	<tk-textarea
+		formControlName="text"
+		hint="Hint text"
+		name="text"
+		id="text"
+	/>
+	<tk-select
+		formControlName="options"
+		hint="Hint text"
+		name="options"
+		id="Test1"
+		[options]="[
+			{ label: 'Option 1', value: 'option1' },
+			{
+				label: 'Option 2',
+				value: 'option2',
+				options: [
+					{ label: 'Option 2.1', value: 'option2.1' },
+					{ label: 'Option 2.2', value: 'option2.2' },
+				],
+			},
+			{ label: 'Option 3', value: 'option3' },
+		]"
+	/>
+	<tk-checkbox
+		formControlName="terms"
+		hint="Hint text"
+		name="Terminos"
+		id="terms"
+		size="sm"
+		label="Acepto los terminos y condiciones"
+	/>
+	<button
+		type="submit"
+		class="mt-2 bg-blue-500 text-white p-2"
+	>
+		Submit
+	</button>
+</form>
