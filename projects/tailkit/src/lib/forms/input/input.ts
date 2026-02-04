@@ -34,6 +34,7 @@ export class TkInput implements ControlValueAccessor, OnInit, AfterViewInit, OnD
 	type = input<InputType>('text')
 	required = input<boolean>(false)
 	id = input<string>('')
+	label = input<string>('')
 	name = input<string>('')
 	size = input<TkSize>('md')
 	placeholder = input<string>('')
@@ -139,9 +140,11 @@ export class TkInput implements ControlValueAccessor, OnInit, AfterViewInit, OnD
 
 		const errors = this.ngControl.errors
 
+		const label = this.label() || this.name() || 'Este campo'
+
 		// Mensajes personalizados según el tipo de error
 		if (errors['required']) {
-			return `${this.name() || 'Este campo'} es requerido`
+			return `${label} es requerido`
 		}
 		if (errors['email']) {
 			return 'Ingresa un email válido'
