@@ -1,1 +1,38 @@
-<p>textarea works!</p>
+<textarea
+	#UITextArea
+	[id]="textAreaId()"
+	[name]="name()"
+	[required]="required()"
+	[disabled]="disabled()"
+	[readonly]="readonly()"
+	[autocomplete]="autocomplete()"
+	[placeholder]="placeholder()"
+	[attr.minlength]="minlength()"
+	[attr.maxlength]="maxlength()"
+	[attr.rows]="rows()"
+	[attr.cols]="cols()"
+	[ngClass]="{
+		'outline-red-500 focus:outline-red-500': isInvalid,
+		'outline-green-500 focus:outline-green-500': isValid,
+		'outline-gray-300 dark:outline-gray-700 focus:outline-indigo-600': !isInvalid && !isValid,
+	}"
+	[class]="classList()"
+	[class.cursor-not-allowed]="disabled() || readonly()"
+	(blur)="_onTouched()"
+	[attr.aria-invalid]="ngControl?.invalid && ngControl?.touched"
+	[attr.aria-describedby]="errorId()"
+></textarea>
+@if (isInvalid && errorMessage) {
+	<p
+		class="mt-1 text-sm font-light text-red-600 dark:text-red-400 flex items-center gap-1"
+		[id]="errorId()"
+	>
+		{{ errorMessage }}
+	</p>
+}
+
+@if (hint() && !isInvalid) {
+	<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+		{{ hint() }}
+	</p>
+}
