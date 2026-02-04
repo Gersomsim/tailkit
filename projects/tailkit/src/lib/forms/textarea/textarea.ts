@@ -64,7 +64,7 @@ export class TkTextarea implements ControlValueAccessor, OnInit, OnDestroy, Afte
 			'outline outline-1 -outline-offset-1',
 			'placeholder:text-gray-400 dark:placeholder:text-gray-600',
 			'focus:outline-2 focus:-outline-offset-2',
-			'transition-colors px-2 py-1',
+			'transition-colors px-2.5 py-1.5',
 		].join(' ')
 
 		const sizeClasses = {
